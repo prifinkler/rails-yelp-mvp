@@ -8,14 +8,25 @@
 
   <%= link_to "Add review", new_restaurant_review_path(@restaurant) %>
 
-    <ul class="list-group">
-      <% @restaurant.reviews.each do |review| %>
-        <li class="list-group-item">
-          <%= review.content %>
-          <%= link_to "Delete", review_path(review), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}%>
-        </li>
-      <% end %>
-    </ul>
+  <ul class="list-group">
+    <% @restaurant.reviews.each do |review| %>
+      <li class="list-group-item">
+        <small>
+          <% count = 0 %>
+          <% 5.times do %>
+            <% if review.rating > count %>
+              <i class="fas fa-star"></i>
+            <% else %>
+              <i class="far fa-star"></i>
+            <% end %>
+            <% count += 1 %>
+          <% end %>
+        </small>
+        <%= review.content %>
+        <%= link_to "Delete", review_path(review), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}%>
+      </li>
+    <% end %>
+  </ul>
   <br>
 
   <br>
